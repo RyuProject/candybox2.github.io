@@ -22,13 +22,13 @@ npx --yes terser ./candybox2_compiled.js \
 rm -rf _site
 mkdir _site
 
-rsync -a \
-  --exclude '.git' \
-  --exclude '.github' \
-  --exclude '_site' \
-  --exclude 'candybox2_compiled.js' \
-  --exclude 'candybox2_minified.js' \
-  ./ _site/
+find . -mindepth 1 -maxdepth 1 \
+  ! -name '.git' \
+  ! -name '.github' \
+  ! -name '_site' \
+  ! -name 'candybox2_compiled.js' \
+  ! -name 'candybox2_minified.js' \
+  -exec cp -R -- {} _site/ \;
 
 cat candybox2_sourceCodeLicense.txt candybox2_minified.js \
   > _site/candybox2.js
